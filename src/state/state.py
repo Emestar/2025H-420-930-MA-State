@@ -30,9 +30,8 @@ class EtatRouge(IEtatFeu):
         return "🔴 ROUGE"
     
     def afficher_statut(self, feu: "FeuDeCirculation"):
-        # reste = self.duree - feu.minuteur
-        # return f"{self.afficher_etat()} ({reste}s restantes)"
-        return True
+        reste = self.duree - feu.minuteur
+        return f"{self.afficher_etat()} ({reste}s restantes)"
     
     def update_minuteur(self, feu: "FeuDeCirculation"):
         if feu.minuteur is not None and feu.minuteur >= self.duree:
@@ -72,8 +71,7 @@ class EtatVert(IEtatFeu):
     
     def afficher_statut(self, feu: "FeuDeCirculation"):
         reste = self.duree - feu.minuteur
-        # return f"{self.afficher_etat()} ({reste}s restantes)"
-        return f"({reste}s restantes)"
+        return f"{self.afficher_etat()} ({reste}s restantes)"
     
     def update_minuteur(self, feu: "FeuDeCirculation"):
         if feu.minuteur is not None and feu.minuteur >= self.duree:
@@ -90,7 +88,6 @@ class EtatMaintenance(IEtatFeu):
     def toggle_maintenance(self, feu: "FeuDeCirculation"):
         if feu.minuteur is not None:
             feu.set_etat(EtatRouge())
-            feu.set_minuteur = 0
     
 class FeuDeCirculation:
     """
@@ -130,17 +127,7 @@ class FeuDeCirculation:
     
     def obtenir_affichage_statut(self):
         """Obtenir une chaîne d'affichage du statut"""
-        self.etat.afficher_statut(self)
-        # if self.etat_actuel == "ROUGE":
-        #     return f"🔴 ROUGE ({self.duree_rouge - self.minuteur}s restantes)"
-        # elif self.etat_actuel == "JAUNE":
-        #     return f"🟡 JAUNE ({self.duree_jaune - self.minuteur}s restantes)"
-        # elif self.etat_actuel == "VERT":
-        #     return f"🟢 VERT ({self.duree_vert - self.minuteur}s restantes)"
-        # elif self.etat_actuel == "MAINTENANCE":
-        #     return "🔴 MAINTENANCE (clignotant)"
-        # else:
-        #     return "❓ ÉTAT INCONNU"
+        return self.etat.afficher_statut(self)
 
 
 def main():
@@ -156,8 +143,7 @@ def main():
     # Simuler l'opération du feu de circulation
     print("\n--- Simulation d'Opération Normale ---")
     for seconde in range(90):  # Exécuter pendant 70 secondes
-        # print(f"Temps: {seconde:2d}s | {feu_de_circulation.obtenir_affichage_statut()}")
-        print(f"Temps: {seconde:2d}s | {feu_de_circulation.obtenir_affichage_statut()} | {feu_de_circulation.obtenir_etat_actuel()}")
+        print(f"Temps: {seconde:2d}s | {feu_de_circulation.obtenir_affichage_statut()}")
         
         # Simuler quelques événements
         if seconde == 15:
