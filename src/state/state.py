@@ -1,3 +1,5 @@
+# Natacha MEYER's edit
+
 import time
 from abc import ABC, abstractmethod
 
@@ -152,12 +154,10 @@ def main():
         
         if seconde == 75:
             print("           🔧 Entrée en mode maintenance!")
-            # feu_de_circulation.mode_maintenance()
             feu_de_circulation.toggle_maintenance()
         
         if seconde == 85:
             print("           ✅ Retour à l'opération normale!")
-            # feu_de_circulation.operation_normale()
             feu_de_circulation.toggle_maintenance()
 
         feu_de_circulation.tic()
